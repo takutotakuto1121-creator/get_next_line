@@ -6,37 +6,15 @@
 /*   By: tsugimot <tsugimot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 13:04:36 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/05/07 15:33:21 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:16:51 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#define BUFFER_SZIE 42
-
-size_t	ft_strlen(const char *s)
+int	ft_get_c(int fd)
 {
-	size_t	len;
-
-	len = 0;
-	while (*s++)
-		len++;
-	return (len);
-}
-
-char	*ft_strncpy(char *dst, const char *src, size_t len)
-{
-	char	*head;
-
-	head = dst;
-	while (*src && len--)
-		*dst++ = *src++;
-	return (head);
-}
-
-char	ft_get_c(int fd)
-{
-	static char str[BUFFER_SIZE];
+	static char	str[BUFFER_SIZE];
 	static int	n;
 	static int	i;
 	static char	c;
@@ -44,13 +22,15 @@ char	ft_get_c(int fd)
 	if (i > n || !*str)
 	{
 		n = read (fd, str, BUFFER_SIZE);
-		if (n == -1 || n == 0)
+		if (n == -1) // error
+			return (-2);
+		if (n == 0) // EOF
 			return (-1);
 		i = 0;
 	}
 	c = str[i];
 	i++;
-	return (c);
+	return ((unsigned char)c);
 }
 
 char	*ft_put_c(char *str, char c)
@@ -76,8 +56,7 @@ char	*ft_put_c(char *str, char c)
 
 char	*get_next_line(int fd)
 {
-	int		n;
-	char	c;
+	int	c;
 	char	*str;
 
 	str = (char *)malloc(sizeof(char));
@@ -85,30 +64,44 @@ char	*get_next_line(int fd)
 	while (1)
 	{
 		c = ft_get_c (fd);
-		if (c == -1)
-			return (NULL);
+		if (c == -2) // error
+		{
+			free (str);
+			return (NULL); 
+		}
+		if (c == -1) //EOF
+		{
+			if (!str[0])
+			{
+				free (str);
+				return (NULL);
+			}
+			break;
+		}
 		str = ft_put_c (str, c);
 		if (!str)
 			return (NULL);
 		if (c == '\n')
-			break;
+			break ;
 	}
 	return (str);
 }
 
-#include <stdio.h>
-#include <fcntl.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
-int	main(void)
-{
-	int fd = open ("text1", O_RDONLY);
-	char *str = get_next_line (fd);
-	char *str1 = get_next_line (fd);
-	char *str2 = get_next_line (fd);
-	printf("%s", str);
-	printf("%s", str1);
-	printf("%s", str2);
-}
+// int	main(void)
+// {
+// 	/*test of get_next_line*/
+// 	int fd = open ("text1", O_RDONLY);
+// 	char *str = get_next_line (fd);
+// 	char *str1 = get_next_line (fd);
+// 	char *str2 = get_next_line (fd);
+// 	printf("--test:basic--\n");
+// 	printf("%s", str);
+// 	printf("%s", str1);
+// 	printf("%s", str2);
+// }
 
 // int	main(void)
 // {
@@ -181,6 +174,5 @@ int	main(void)
 // 	printf("%s\n", str5);
 // 	printf("%s\n", str6);
 // 	printf("%s\n", str7);
-	
 // 	return (0);
 // }
