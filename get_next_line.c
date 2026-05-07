@@ -6,7 +6,7 @@
 /*   By: tsugimot <tsugimot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 13:04:36 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/05/07 16:16:51 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/05/07 19:16:04 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_get_c(int fd)
 	static int	i;
 	static char	c;
 
-	if (i > n || !*str)
+	if (i >= n || !*str)
 	{
 		n = read (fd, str, BUFFER_SIZE);
-		if (n == -1) // error
+		if (n == -1)
 			return (-2);
-		if (n == 0) // EOF
+		if (n == 0)
 			return (-1);
 		i = 0;
 	}
@@ -54,9 +54,15 @@ char	*ft_put_c(char *str, char c)
 	return (new);
 }
 
+char	*free_and_return(char **str)
+{
+	free (*str);
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
-	int	c;
+	int		c;
 	char	*str;
 
 	str = (char *)malloc(sizeof(char));
@@ -64,19 +70,13 @@ char	*get_next_line(int fd)
 	while (1)
 	{
 		c = ft_get_c (fd);
-		if (c == -2) // error
-		{
-			free (str);
-			return (NULL); 
-		}
-		if (c == -1) //EOF
+		if (c == -2)
+			return (free_and_return (&str));
+		if (c == -1)
 		{
 			if (!str[0])
-			{
-				free (str);
-				return (NULL);
-			}
-			break;
+				return (free_and_return (&str));
+			break ;
 		}
 		str = ft_put_c (str, c);
 		if (!str)
