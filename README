@@ -1,0 +1,35 @@
+# get_next_line
+## static variable
+
+## 概要
+,,,C
+static char *str;
+fd = open (fd, "O_RDONLY");
+while (str[i])
+{
+	if (str[i] == '\n')
+		flag = 1
+	i++;
+}
+if (!flag)
+{
+	str = read (fd, str, BUF_SIZE);
+
+}
+,,,
+
+全部読み込んでから一行ずつ出力
+or
+開業がなければ都度読み込んで改行まで出力←こっち
+
+
+
+bufで読み取る
+line = line + buf 
+buf = bufの\nより後
+
+lineに開業がなければ
+buf読み取ってもう一回
+
+lineに開業があれば
+return;
