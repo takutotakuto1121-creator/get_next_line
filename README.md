@@ -5,6 +5,8 @@
 
 ## 指示(Instructions)
 全てのソースファイルは、`-Wall -Wextra -Werror` フラグを用いて `cc` でコンパイルされます。
+`cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c`のようにコンパイルします。
+`-D`フラグによって、`BUFFER_SIZE`を指定できます。指定しない場合、`BUFFER_SIZE`は`42`になります。
 
 ## 参考
 コードの記述にAIは使用していません。
