@@ -6,7 +6,7 @@
 /*   By: tsugimot <tsugimot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 15:39:14 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/08/15 06:11:27 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/08/15 06:26:22 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
+int		free_null_return(char **str, int re);
 int		ft_get_c(int fd);
 char	*ft_put_c(char *str, char c);
 char	*free_and_return(char **str);
