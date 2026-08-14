@@ -3,29 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsugimot <tsugimot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsugimot <tsugimot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 13:04:36 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/05/07 19:16:04 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/08/15 06:10:32 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+int	free_null_return(char **str, int re)
+{
+	free (*str);
+	*str = NULL;
+	return (re);
+}
+
 int	ft_get_c(int fd)
 {
-	static char	str[BUFFER_SIZE];
+	static char	*str;
 	static int	n;
 	static int	i;
 	static char	c;
 
-	if (i >= n || !*str)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (-2);
+	if (!str)
+	{
+		str = (char *)malloc (sizeof(char) * BUFFER_SIZE);
+		if (!str)
+			return (-2);
+	}
+	if (i >= n)
 	{
 		n = read (fd, str, BUFFER_SIZE);
 		if (n == -1)
-			return (-2);
+			return (free_null_return (&str, -2));
 		if (n == 0)
-			return (-1);
+			return (free_null_return (&str, -1));
 		i = 0;
 	}
 	c = str[i];

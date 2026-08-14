@@ -6,14 +6,14 @@
 /*   By: tsugimot <tsugimot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 15:39:14 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/05/19 16:03:16 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/08/15 06:11:27 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-// # define BUFFER_SIZE 42
+# define BUFFER_SIZE 42
 
 # include <stdlib.h>
 # include <unistd.h>
