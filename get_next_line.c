@@ -6,7 +6,7 @@
 /*   By: tsugimot <tsugimot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 13:04:36 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/08/15 06:10:32 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/08/15 16:25:47 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	*get_next_line(int fd)
 	char	*str;
 
 	str = (char *)malloc(sizeof(char));
+	if (!str)
+		return (NULL);
 	str[0] = '\0';
 	while (1)
 	{
@@ -102,21 +104,26 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-// #include <stdio.h>
-// #include <fcntl.h>
+#include <stdio.h>
+#include <fcntl.h>
 
-// int	main(void)
-// {
-// 	/*test of get_next_line*/
-// 	int fd = open ("text1", O_RDONLY);
-// 	char *str = get_next_line (fd);
-// 	char *str1 = get_next_line (fd);
-// 	char *str2 = get_next_line (fd);
-// 	printf("--test:basic--\n");
-// 	printf("%s", str);
-// 	printf("%s", str1);
-// 	printf("%s", str2);
-// }
+int	main(void)
+{
+	/*test of get_next_line*/
+	int fd = open ("text1", O_RDONLY);
+	// fd = 42;
+	char *str;
+
+	str = get_next_line (fd);
+	printf ("%s\n", str);
+	free (str);
+	while (str)
+	{
+		str = get_next_line (fd);
+		printf ("%s\n", str);
+		free (str);
+	}
+}
 
 // int	main(void)
 // {
