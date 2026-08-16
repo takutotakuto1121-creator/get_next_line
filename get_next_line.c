@@ -6,7 +6,7 @@
 /*   By: tsugimot <tsugimot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 13:04:36 by tsugimot          #+#    #+#             */
-/*   Updated: 2026/08/15 16:25:47 by tsugimot         ###   ########.fr       */
+/*   Updated: 2026/08/16 16:09:50 by tsugimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,26 +104,26 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-#include <stdio.h>
-#include <fcntl.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
-int	main(void)
-{
-	/*test of get_next_line*/
-	int fd = open ("text1", O_RDONLY);
-	// fd = 42;
-	char *str;
+// int	main(void)
+// {
+// 	/*test of get_next_line*/
+// 	int fd = open ("text1", O_RDONLY);
+// 	// fd = 42;
+// 	char *str;
 
-	str = get_next_line (fd);
-	printf ("%s\n", str);
-	free (str);
-	while (str)
-	{
-		str = get_next_line (fd);
-		printf ("%s\n", str);
-		free (str);
-	}
-}
+// 	str = get_next_line (fd);
+// 	printf ("%s\n", str);
+// 	free (str);
+// 	while (str)
+// 	{
+// 		str = get_next_line (fd);
+// 		printf ("%s\n", str);
+// 		free (str);
+// 	}
+// }
 
 // int	main(void)
 // {
